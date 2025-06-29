@@ -30,30 +30,25 @@ WELCOME TO MSD-RAILWAYS HOME
 
     print()
     typfast('''
-[1] Login
-[2] Register 
-[3] Help
-[4] Credits
-[5] Quit                  
+[1] Tickets 
+[2] Login
+[3] Register 
+[4] Help
+[5] Credits
+[6] Quit                  
 ''')
-
-
-
-
-    def logindash():
-        typ("(*s)Logged in successfully")
     choice=int(input("Enter your choice -> "))
-    if choice==5:
+    if choice==6:
         typ("Quitting MSD-RAILWAYS Home...")
         exit()
-    elif choice==4:
+    elif choice==5:
         typ(" GITHUB- https://github.com/linuxistliebe ")
         time.sleep(5)
 
-    elif choice==3:
+    elif choice==4:
         typ("This is MSD-Railways Home. Here, you can open the Tickets Dashboard, login to your account (if exists), register an account, open the credits panel.")
         time.sleep(3)
-    elif choice==1:
+    elif choice==2:
         print()
         username_query=input("Enter your USERNAME -> ")
         password_query=input("Enter your PASSWORD -> ")
@@ -70,7 +65,7 @@ WELCOME TO MSD-RAILWAYS HOME
 
         time.sleep(2)
         
-    elif choice==2:
+    elif choice==3:
         print()
         username_create=input("Create a Username -> ")
         password_create=input("Create a Password -> ")
