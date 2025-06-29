@@ -12,10 +12,16 @@ def typ(a):
     for i in a:
         print(i,end="")
         time.sleep(0.03)
+def typfast(a):
+    for i in a:
+        print(i,end="")
+        time.sleep(0.003)
+
 
 
 while True:
-    print('''
+    typfast('''
+
 ----------------------------      
 WELCOME TO MSD-RAILWAYS HOME
 ----------------------------
@@ -23,7 +29,7 @@ WELCOME TO MSD-RAILWAYS HOME
 ''')
 
     print()
-    print('''
+    typfast('''
 [1] Tickets 
 [2] Login
 [3] Register 
@@ -56,16 +62,26 @@ WELCOME TO MSD-RAILWAYS HOME
             time.sleep(0.8)
             for i in result:
                 print(i)
+
+        time.sleep(2)
         
-    elif choice==1:
+    elif choice==3:
         print()
         username_create=input("Create a Username -> ")
         password_create=input("Create a Password -> ")
         city_create=input("Enter the name of your city -> ")
         age_create=int(input("Enter your age -> "))
-        
-        
-
+        name_create=input("Enter your name -> ")
+        curs.execute("SELECT username from account where username='{}'".format(username_create))
+        result_crt=curs.fetchall()
+        if len(result_crt)==0:
+            curs.execute("insert into account values('{}','{}','{}','{}','{}')".format(name_create,username_create,age_create,city_create,password_create))     
+            con.commit()
+            time.sleep(1.7)
+            print("Account Created","(*)USERNAME -",username_create)
+        else:
+            print("USERNAME -",username_create,"is not available!")
+            time.sleep(1.3)
     else:
         typ("Invalid Choice Entered!")
         time.sleep(2)
