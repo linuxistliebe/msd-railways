@@ -62,9 +62,9 @@ WELCOME TO DASHBOARD
                 # this function is for viewing booked tickets by the user
                 def current_ticket_status():
                     print()
-                    curs.execute("select * from {}".format(loggedin_id))
+                    curs.execute("select * from {} order by num".format(loggedin_id))
                     result_current_ticket_status=curs.fetchall()
-                    if result_current_ticket_status==None:
+                    if len(result_current_ticket_status)==0:
                         print("(*) No Tickets have been booked with this account!")
                         time.sleep(1.2)
 
@@ -75,9 +75,14 @@ WELCOME TO DASHBOARD
 
 
                 # this function is for cancellation of tickets booked by the user
-                def cancellation():
+                def cancellation():        
                     print()
-
+                    tick_no=int(input("Enter the Ticket NO. to remove -> "))
+                    curs.execute("delete from {} where num={}".format(loggedin_id,tick_no))
+                    con.commit()
+                    print("(*) Ticket NO.",tick_no,end="")
+                    typ(" has been deleted!")
+                    time.sleep(1.4)
                 # this is a function for booking tickets from available options
                 def reservation():
                     print()
@@ -164,6 +169,7 @@ AVAILABLE ROUTES|
                 elif choice_dash==3:
                     typ("|CANCELLATION|")
                     print()
+                    cancellation()
 
                 #displays currently booked tickets by a user
                 elif choice_dash==2:
