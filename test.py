@@ -233,7 +233,7 @@ AVAILABLE ROUTES|
             curs.execute("insert into account values('{}','{}','{}','{}','{}')".format(name_create,username_create,age_create,city_create,password_create))     
             con.commit()
             time.sleep(1.7)
-            curs.execute("create table '{}'(num int, price int, from_city varchar(30), to_city varchar(30), time varchar(10), train_name varchar(10))".format(username_create))
+            curs.execute("create table {}(num int, price int, from_city varchar(30), to_city varchar(30), time varchar(10), train_name varchar(10))".format(username_create))
             print("Account Created","(*)USERNAME -",username_create)
         else:
             print("USERNAME -",username_create,"is not available!")
@@ -247,12 +247,14 @@ AVAILABLE ROUTES|
         print()
         secretCode=input("Enter the secretCode -> ")
         curs.execute("select scode from admin")
-        scode=curs.fetchall()
+        scode=curs.fetchone()[0]
         if secretCode==scode:
-            print()
-            typast("Welcome ADMIN")
-            typ("[remember]-With great power comes great resposibility!")
-            typfast('''
+            while True:
+                print()
+                typfast("Welcome ADMIN")
+                print()
+                typ("~~~ With great power comes great resposibility!")
+                typfast('''
 ---------------------------------                
 [1] Display all available tickets
 [2] Display ACCOUNTS 
@@ -260,22 +262,58 @@ AVAILABLE ROUTES|
 [4] Change the secretCode
 [5] eXit root-admin-mode
 ---------------------------------
-                ''')
+''')
 
-            opt=int(input("Enter your choice -> "))
-            if opt==5:
-                break
-            elif opt==4:
-                print()
+                opt=int(input("Enter your choice -> "))
+                if opt==5:
+                    typfast("[!]:eXiting root-admin-mode")
+                    break
+                elif opt==4:
+                    print()
+                    new_scode=input("Enter the new secretCode (make sure it's strong!) -> ")
+                    curs.execute("update admin set scode='{}'".format(new_scode))
+                    con.commit()
+                elif opt==3:
+                    print()
+                    ans=int(input("What is 1+1? "))
+                    if ans==2:
+                        print()
+                        typfast("Fetching Passwords...")
+                        print()
+                        curs.execute("select username, pass from account;")
+                        result=curs.fetchall()
+                        for i in result:
+                            print(i)
+                        time.sleep(3)
+                    else:
+                        typ("Nice Try. Now get out!")
+                        con.close()
+                        exit()
 
-            elif opt==3:
-                print()
+                elif opt==2:
+                    print()
+                    ans=int(input("What is 1+1 in Boolean Algebra? "))
+                    if ans==1:
+                        print()
+                        typfast("Fetching Accounts...")
+                        print()
+                        curs.execute("select * from account;")
+                        result=curs.fetchall()
+                        for i in result:
+                            print(i)
+                    else:
+                        typ("Nice Try. Now get out!")
+                        con.close()
+                        exit()
 
-            elif opt==2:
-                print()
+                elif opt==1:
+                    print()
+                    curs.execute("select * from tickets")
+                    result=curs.fetchall()
+                    for i in result:
+                        print(i)
+                        time.sleep(3)
 
-            elif opt==1:
-                print()
     # invalid input given by user in MSD-RAILWAYS menu
     else:
         typ("(*)Invalid Choice Entered!")
