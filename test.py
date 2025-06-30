@@ -24,9 +24,9 @@ def typfast(a):
 while True:
     typfast('''
 
-----------------------------      
-WELCOME TO MSD-RAILWAYS HOME
-----------------------------
+-----------------------------     
+WELCOME TO MSD-RAILWAYS HOME|
+-----------------------------
 
 ''')
 
@@ -36,7 +36,8 @@ WELCOME TO MSD-RAILWAYS HOME
 [2] Register 
 [3] Help
 [4] Credits
-[5] Quit                  
+[5] Quit
+[6] Admin               
 ''')
 
 
@@ -48,9 +49,9 @@ WELCOME TO MSD-RAILWAYS HOME
         while True:
                 typfast('''
 
---------------------      
-WELCOME TO DASHBOARD
---------------------
+---------------------     
+WELCOME TO DASHBOARD|
+---------------------
 ''')
 
                 typfast('''
@@ -190,6 +191,7 @@ AVAILABLE ROUTES|
     choice=int(input("Enter your choice -> "))
     if choice==5:
         typ("Quitting MSD-RAILWAYS Home...")
+        con.close()
         exit()
     elif choice==4:
         typ(" GITHUB- https://github.com/linuxistliebe ")
@@ -236,6 +238,44 @@ AVAILABLE ROUTES|
         else:
             print("USERNAME -",username_create,"is not available!")
             time.sleep(1.3)
+
+
+    #ADMIN MENU- for admins
+    elif choice==6:
+        print()
+        typfast("(*)Verify Yourself before heading to the ADMIN MENU!")
+        print()
+        secretCode=input("Enter the secretCode -> ")
+        curs.execute("select scode from admin")
+        scode=curs.fetchall()
+        if secretCode==scode:
+            print()
+            typast("Welcome ADMIN")
+            typ("[remember]-With great power comes great resposibility!")
+            typfast('''
+---------------------------------                
+[1] Display all available tickets
+[2] Display ACCOUNTS 
+[3] Display PASSWORDS
+[4] Change the secretCode
+[5] eXit root-admin-mode
+---------------------------------
+                ''')
+
+            opt=int(input("Enter your choice -> "))
+            if opt==5:
+                break
+            elif opt==4:
+                print()
+
+            elif opt==3:
+                print()
+
+            elif opt==2:
+                print()
+
+            elif opt==1:
+                print()
     # invalid input given by user in MSD-RAILWAYS menu
     else:
         typ("(*)Invalid Choice Entered!")
