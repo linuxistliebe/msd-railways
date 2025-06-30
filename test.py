@@ -245,6 +245,7 @@ AVAILABLE ROUTES|
         print()
         typfast("(*)Verify Yourself before heading to the ADMIN MENU!")
         print()
+        # PASSWORD FOR ADMIN is the secretCode
         secretCode=input("Enter the secretCode -> ")
         curs.execute("select scode from admin")
         scode=curs.fetchone()[0]
@@ -263,16 +264,19 @@ AVAILABLE ROUTES|
 [5] eXit root-admin-mode
 ---------------------------------
 ''')
-
                 opt=int(input("Enter your choice -> "))
                 if opt==5:
                     typfast("[!]:eXiting root-admin-mode")
                     break
+
+                #changing secretCode
                 elif opt==4:
                     print()
                     new_scode=input("Enter the new secretCode (make sure it's strong!) -> ")
                     curs.execute("update admin set scode='{}'".format(new_scode))
                     con.commit()
+
+                #2-step verification implemented
                 elif opt==3:
                     print()
                     ans=int(input("What is 1+1? "))
@@ -285,11 +289,14 @@ AVAILABLE ROUTES|
                         for i in result:
                             print(i)
                         time.sleep(3)
+
+                    #if secondary test fails
                     else:
                         typ("Nice Try. Now get out!")
                         con.close()
                         exit()
 
+                #2-step verification implemented
                 elif opt==2:
                     print()
                     ans=int(input("What is 1+1 in Boolean Algebra? "))
@@ -301,11 +308,14 @@ AVAILABLE ROUTES|
                         result=curs.fetchall()
                         for i in result:
                             print(i)
+
+                    #if secondary test fails
                     else:
                         typ("Nice Try. Now get out!")
                         con.close()
                         exit()
 
+                #this one just fetches the available tickets!
                 elif opt==1:
                     print()
                     curs.execute("select * from tickets")
@@ -318,4 +328,6 @@ AVAILABLE ROUTES|
     else:
         typ("(*)Invalid Choice Entered!")
         time.sleep(1.8)
-        
+ #end of the project, finally!
+ #Check out my github profile -> https://github.com/linuxistliebe      
+ #Check out the repository    ->https://github.com/linuxistliebe/msd-railways 
